@@ -15,6 +15,9 @@ def sin(a):
 
 # 用于逆运算的 转置t
 def transpose(x): # 取出每个——batch_size中的一个数据集的一个参数
+
+    x = x[0]
+
     a = x[0][:3]
     b = x[1][:3]
     c = x[2][:3]
@@ -35,6 +38,7 @@ def transpose(x): # 取出每个——batch_size中的一个数据集的一个�
     P = P.unsqueeze(0)
 
     T_Transpose = torch.cat([torch.t(T_Transpose0), P], 0)
+
 
     return T_Transpose
 
@@ -129,6 +133,7 @@ def euler_to_rotMat(yaw, pitch, roll):
 #     return T_shapings
 
 
+# 输入1×6tensor形式数据，数据前3个是欧拉角（转换为旋转矩阵），后三个是位置，输出是shaping后的4×4tensor齐次矩阵
 def shaping(x):
     T_shapings = []
     for i in x: # 取出每个——batch_size中的一个数据集的一个参数
@@ -186,7 +191,7 @@ def shaping2(x):
     return T_shapings
 
 def shaping_inputs_6to12(ori_position, tar_object_position):
-
+    # 将目标物体1x6与放置位置1x6组合为1x12
     inputs_list_1x12 = []
 
     for position_tar in tar_object_position:
@@ -200,10 +205,10 @@ def shaping_inputs_6to12(ori_position, tar_object_position):
     return inputs_list_1x12
 
 def shaping_inputs_12to6(inputs_list_1x12):
-
+    # 将1x12输入转为10x1x6,
     inputs_list_1x6 = []
 
-    inputs_list = torch.split(inputs_list_1x12, split_size_or_sections=6, dim=1)
+    inputs_list = torch.split(inputs_list_1x12, split_size_or_sections=6, dim=0)
 
     for input in inputs_list:
         inputs_list_1x6.append(input)
@@ -223,3 +228,28 @@ def shaping_output_6to3(intermediate_outputs):
     outputs_list_1x3 = torch.cat(outputs_list_1x3, dim=0)
 
     return outputs_list_1x3
+
+def shaping_inputs_xx6_to_1xx(inputs_xx6):
+
+    inputs_1xx = []
+    for inputs_1x6 in inputs_xx6:
+        inputs_1xx.append(inputs_1x6)
+    inputs_1xx = torch.cat(inputs_1xx, dim=0)
+
+    return inputs_1xx
+
+def shaping_inputs_1xx_to_xx1x6(inputs_1xx, num_i):
+    # 将1x42转换为7x1x6
+    inputs_xx1x6 = []
+    h = int(num_i / 6)
+    inputs_xx1x6 = inputs_1xx.view(h, 1, 6)
+
+    return inputs_xx1x6
+
+def shaping_outputs_1xx_to_xx3(intermediate_outputs, num_i):
+    # 将1x42转换为7x1x6
+
+    h = int(num_i / 6)
+    outputs_xx3 = intermediate_outputs.view(h, 3)
+
+    return outputs_xx3
