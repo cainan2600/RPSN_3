@@ -14,28 +14,26 @@ def data_generate(i):
 
                 yuanxin_x = np.random.uniform(-0.4, 4.4)
                 yuanxin_y = np.random.uniform(-0.4, 3.0)
-                if 0 <= yuanxin_x <= 2.6:
-                    while 0 <= yuanxin_y <= 4:
+                if 0 <= yuanxin_x <= 4:
+                    while 0 <= yuanxin_y <= 2.6:
                         yuanxin_y = np.random.uniform(-0.4, 3.0)
-                else:
-                    yuanxin_y = np.random.uniform(-0.4, 3.0)
                 # print(yuanxin_x, yuanxin_y)
 
                 # 取在移动底盘不同时，同时在机械臂可达范围内的的点
-                x = np.random.uniform(0, 2.6)
-                y = np.random.uniform(0, 4)
+                x = np.random.uniform(0, 4)
+                y = np.random.uniform(0, 2.6)
                 distance_yuan_and_dian = math.sqrt((x - yuanxin_x)**2 + (y - yuanxin_y)**2)
 
                 # 取求解不出的点------一半在可达范围外
                 if not num_data/2 == 0:
-                    if distance_yuan_and_dian >= 1.3:
-                        x = np.random.uniform(0, 2.6)
-                        y = np.random.uniform(0, 4)
+                    while distance_yuan_and_dian >= 1.3:
+                        x = np.random.uniform(0, 4)
+                        y = np.random.uniform(0, 2.6)
                         distance_yuan_and_dian = math.sqrt((x - yuanxin_x)**2 + (y - yuanxin_y)**2)
                 else:
-                    if distance_yuan_and_dian <= 1.3:
-                        x = np.random.uniform(0, 2.6)
-                        y = np.random.uniform(0, 4)
+                    while distance_yuan_and_dian <= 1.3:
+                        x = np.random.uniform(0, 4)
+                        y = np.random.uniform(0, 2.6)
                         distance_yuan_and_dian = math.sqrt((x - yuanxin_x)**2 + (y - yuanxin_y)**2)                
 
                 z = np.random.uniform(1, 1.1)
@@ -62,23 +60,21 @@ def data_generate(i):
 
                 yuanxin_x = np.random.uniform(-0.4, 4.4)
                 yuanxin_y = np.random.uniform(-0.4, 3.0)
-                if 0 <= yuanxin_x <= 2.6:
-                    while 0 <= yuanxin_y <= 4:
+                if 0 <= yuanxin_x <= 4:
+                    while 0 <= yuanxin_y <= 2.6:
                         yuanxin_y = np.random.uniform(-0.4, 3.0)
-                else:
-                    yuanxin_y = np.random.uniform(-0.4, 3.0)
                 # print(yuanxin_x, yuanxin_y)
 
                 # 取在移动底盘不同时，同时在机械臂可达范围内的的点
-                x = np.random.uniform(0, 2.6)
-                y = np.random.uniform(0, 4)
+                x = np.random.uniform(0, 4)
+                y = np.random.uniform(0, 2.6)
                 distance_yuan_and_dian = math.sqrt((x - yuanxin_x)**2 + (y - yuanxin_y)**2)
 
                 # 取求解不出的点------一半在可达范围外
                 # if not num_data/2 == 0:
-                if distance_yuan_and_dian >= 1.3:
-                    x = np.random.uniform(0, 2.6)
-                    y = np.random.uniform(0, 4)
+                while distance_yuan_and_dian >= 1.3:
+                    x = np.random.uniform(0, 4)
+                    y = np.random.uniform(0, 2.6)
                     distance_yuan_and_dian = math.sqrt((x - yuanxin_x)**2 + (y - yuanxin_y)**2)
                 # else:
                 #     if distance_yuan_and_dian <= 1.3:

@@ -124,3 +124,19 @@ def plot_sametime_solution(checkpoint_dir, start_epoch, epochs, NUM_sametime_sol
         os.makedirs(checkpoint_dir)
     file_path = os.path.join(checkpoint_dir, 'sametime_solution.png')
     plt.savefig(file_path)
+
+def plot_no_not_have_solution(checkpoint_dir, start_epoch, epochs, NUM_ALL_HAVE_SOLUTION):
+    draw_epochs = list(range(start_epoch, start_epoch + epochs))
+    plt.figure()
+
+    plt.plot(draw_epochs, NUM_ALL_HAVE_SOLUTION, 'r-', label='NUM_ALL_HAVE_SOLUTION')
+
+    plt.xlabel('Epoch')
+    plt.ylabel('Value')
+    plt.title('NUM_ALL_HAVE_SOLUTION')
+    plt.legend()
+
+    if not os.path.exists(checkpoint_dir):
+        os.makedirs(checkpoint_dir)
+    file_path = os.path.join(checkpoint_dir, 'NUM_ALL_HAVE_SOLUTION.png')
+    plt.savefig(file_path)
